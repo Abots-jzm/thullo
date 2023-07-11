@@ -13,6 +13,12 @@ export default {
       boxShadow: {
         light: "0px 2px 12px rgba(0, 0, 0, 0.1)",
       },
+      colors: {
+        primaryBlue: "#2F80ED",
+        primaryRed: "#EB5757",
+        ash: "#828282",
+        grey1: "#bdbdbd",
+      },
     },
   },
   plugins: [headlessui],
