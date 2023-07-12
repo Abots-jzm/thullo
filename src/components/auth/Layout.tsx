@@ -26,7 +26,7 @@ function Layout({ mode, register, onSubmit, isLoading, error, nextPath }: Props)
 			onSuccess({ user }) {
 				const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
 
-				if (isNewUser) navigate(routes.profileSetup);
+				if (isNewUser) navigate(routes.profile);
 				else navigate(nextPath || routes.home, { replace: true });
 			},
 		});

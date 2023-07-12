@@ -1,6 +1,6 @@
 export const routes = {
-  home: "/home",
-  login: "/login",
-  signup: "/signup",
-  profileSetup: "/profile-setup",
+	home: "/home",
+	login: "/login",
+	signup: "/signup",
+	profile: "/profile",
 };

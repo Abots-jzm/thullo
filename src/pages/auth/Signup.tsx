@@ -12,7 +12,7 @@ function Signup() {
 
 	function onSubmit(payload: AuthPayload) {
 		signup(payload, {
-			onSuccess: () => navigate(routes.profileSetup, { replace: true }),
+			onSuccess: () => navigate(routes.profile, { replace: true }),
 		});
 	}
 
