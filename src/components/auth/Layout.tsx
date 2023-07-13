@@ -33,7 +33,7 @@ function Layout({ mode, register, onSubmit, isLoading, error, nextPath }: Props)
 	}
 
 	return (
-		<div className="mt-6 grid h-auto w-full place-items-start sm:mb-0 sm:h-screen sm:place-items-center">
+		<div className="mt-6 grid h-auto w-full place-items-start bg-white sm:mb-0 sm:h-screen sm:place-items-center">
 			<div className="w-full rounded-xl p-5 sm:max-w-[480px] sm:p-12 sm:shadow-light ">
 				<div className="flex items-center gap-3">
 					<div>
@@ -68,8 +68,9 @@ function Layout({ mode, register, onSubmit, isLoading, error, nextPath }: Props)
 						/>
 					</div>
 					<button
-						className="flex items-center justify-center gap-5 rounded-lg bg-primaryBlue p-2 font-bold text-white"
+						className="flex items-center justify-center gap-5 rounded-lg bg-primaryBlue p-2 font-bold text-white disabled:opacity-75"
 						type="submit"
+						disabled={isLoading}
 					>
 						<span className="capitalize">{mode}</span>
 						{isLoading && <div className="h-5 w-5 animate-spin rounded-full border-l-2" />}
