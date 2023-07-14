@@ -1,33 +1,48 @@
 import { MdApps, MdArrowDropDown, MdLogout } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import LogoSVG from "../../assets/logo.svg";
-import BlankPNG from "../../assets/blank-profile-picture.png";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { routes } from "../../routes";
 import useLogout from "../../hooks/auth/useLogout";
+import useGetUserProfile from "../../hooks/profile/useGetUserProfile";
+import Avatar from "../home/Avatar";
+import clsx from "clsx";
 
 function Header() {
+	const { data: userProfile } = useGetUserProfile();
 	const { mutate: logout } = useLogout();
+	const { pathname } = useLocation();
+	const isHome = pathname === routes.home;
 
 	return (
 		<header className="sticky top-0 flex items-center justify-between gap-4 bg-white px-3 pb-3 pt-5 shadow-shadow1 sm:px-7">
 			<div className="flex items-center gap-16 lg:gap-24">
-				<div className="hidden items-center gap-3 lg:flex ">
-					<div>
+				<div
+					className={clsx("items-center gap-2 lg:gap-3", {
+						"hidden lg:flex": !isHome,
+						"flex text-sm ": isHome,
+					})}
+				>
+					<div className="h-6 lg:h-auto">
 						<img src={LogoSVG} alt="thullo logo" />
 					</div>
-					<div className="font-poppins text-lg font-semibold">Thullo</div>
+					<div className="font-poppins font-semibold lg:text-lg">Thullo</div>
 				</div>
-				<div className="flex items-center gap-6">
-					<div className="hidden font-poppins text-lg font-medium sm:block">Devchallenges Board</div>
-					<div className="hidden h-8 w-[1px] bg-grey2 sm:block" />
-					<button className="flex items-center gap-3 rounded-lg bg-grey3 px-4 py-2.5 text-[12px] text-ash">
-						<MdApps />
-						<span className="whitespace-nowrap">All boards</span>
-					</button>
-				</div>
+				{!isHome && (
+					<div className="flex items-center gap-6">
+						<div className="hidden font-poppins text-lg font-medium sm:block">Devchallenges Board</div>
+						<div className="hidden h-8 w-[1px] bg-grey2 sm:block" />
+						<Link
+							to={routes.home}
+							className="flex items-center gap-3 rounded-lg bg-grey3 px-4 py-2.5 text-[12px] text-ash"
+						>
+							<MdApps />
+							<span className="whitespace-nowrap">All boards</span>
+						</Link>
+					</div>
+				)}
 			</div>
 			<div className="flex items-center gap-10 text-[12px]">
 				<form className="hidden max-w-[338px] flex-1 rounded-lg p-0.5 shadow-shadow2 md:flex">
@@ -42,10 +57,10 @@ function Header() {
 				</form>
 				<Menu as="div" className="relative">
 					<Menu.Button className="flex items-center gap-1 sm:gap-4">
-						<div className="hidden h-8 w-8 overflow-hidden rounded-lg sm:block">
-							<img src={BlankPNG} alt={"name" + " pic"} />
+						<div className="hidden h-8 w-8 overflow-hidden rounded-lg text-[12px] sm:block ">
+							<Avatar name={userProfile?.name || "-"} photoUrl={userProfile?.photoUrl} />
 						</div>
-						<span className="font-bold">Xanthe Neal</span>
+						<span className="font-bold">{userProfile?.name}</span>
 						<div className="grid place-items-center text-lg">
 							<MdArrowDropDown />
 						</div>

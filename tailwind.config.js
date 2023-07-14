@@ -26,7 +26,16 @@ export default {
 				offWhite: "#f8f9fd",
 			},
 			gridTemplateColumns: {
-				fluid: "repeat(auto-fit, minmax(232px, 1fr))",
+				fluid: "repeat(auto-fill, minmax(232px, 1fr))",
+			},
+			keyframes: {
+				juggle: {
+					"0%": { top: "8px", height: "64px" },
+					"50%, 100%": { top: "24px", height: "32px" },
+				},
+			},
+			animation: {
+				juggle: "juggle 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite",
 			},
 		},
 	},

@@ -49,7 +49,7 @@ function Layout({ mode, register, onSubmit, isLoading, error, nextPath }: Props)
 						</div>
 						<input
 							{...register("email")}
-							className="bordergr w-full rounded-lg border border-grey1 p-2 pl-[42px] placeholder:text-ash"
+							className="w-full rounded-lg border border-grey1 p-2 pl-[42px] placeholder:text-ash"
 							type="email"
 							placeholder="Email"
 							required
@@ -61,7 +61,7 @@ function Layout({ mode, register, onSubmit, isLoading, error, nextPath }: Props)
 						</div>
 						<input
 							{...register("password")}
-							className="bordergr w-full rounded-lg border border-grey1 p-2 pl-[42px] placeholder:text-ash"
+							className="w-full rounded-lg border border-grey1 p-2 pl-[42px] placeholder:text-ash"
 							type="password"
 							placeholder="Password"
 							required

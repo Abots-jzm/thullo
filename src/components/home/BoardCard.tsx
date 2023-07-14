@@ -1,23 +1,35 @@
-import BlankPNG from "../../assets/blank-profile-picture.png";
+import { useNavigate } from "react-router-dom";
+import { UserProfile } from "../../hooks/profile/types";
+import Avatar from "./Avatar";
+import GenericCoverJPG from "../../assets/generic cover.jpg";
 
-function BoardCard() {
+type Props = {
+	id: string;
+	coverUrl?: string;
+	title: string;
+	admin: UserProfile;
+	members: UserProfile[];
+};
+
+function BoardCard({ id, coverUrl, title, admin, members }: Props) {
+	const navigate = useNavigate();
+
 	return (
-		<li className="cursor-pointer rounded-xl bg-white p-3 pb-4 shadow-shadow3">
+		<li onClick={() => navigate("/" + id)} className="cursor-pointer rounded-xl bg-white p-3 pb-4 shadow-shadow3">
 			<div className="h-32 overflow-hidden rounded-lg">
-				<img src="https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg" alt={"board" + " cover"} />
+				<img src={coverUrl || GenericCoverJPG} alt={title + " cover"} className={!coverUrl ? "object-right" : ""} />
 			</div>
-			<div className="mt-3 font-medium">DevChallenges Board</div>
-			<div className="mt-5 flex items-center gap-3 text-[12px]">
+			<div className="mt-3 font-medium">{title}</div>
+			<div className="mt-5 flex items-center gap-3 text-[12px]" key="admin">
 				<div className="h-7 w-7 overflow-hidden rounded-lg">
-					<img src={BlankPNG} alt={"name" + " pic"} />
+					<Avatar photoUrl={admin.photoUrl} name={admin.name} />
 				</div>
-				<div className="h-7 w-7 overflow-hidden rounded-lg">
-					<div className="grid h-full w-full place-items-center bg-grey1  text-white">TN</div>
-				</div>
-				<div className="h-7 w-7 overflow-hidden rounded-lg">
-					<img src={BlankPNG} alt={"name" + " pic"} />
-				</div>
-				<div className="font-medium text-grey1">+ 5 others</div>
+				{members.slice(0, 3).map((member) => (
+					<div className="h-7 w-7 overflow-hidden rounded-lg" key={member.userId}>
+						<Avatar photoUrl={member.photoUrl} name={member.name} />
+					</div>
+				))}
+				{members.length > 2 && <div className="font-medium text-grey1">+ 5 others</div>}
 			</div>
 		</li>
 	);

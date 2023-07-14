@@ -3,6 +3,8 @@ import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { MdClose, MdImage, MdLock, MdAdd } from "react-icons/md";
 import { NewBoardForm } from "./types";
+import useCreateNewBoard from "../../hooks/home/useCreateNewBoard";
+import useGetUserProfile from "../../hooks/profile/useGetUserProfile";
 
 type Props = {
 	isOpen: boolean;
@@ -10,11 +12,21 @@ type Props = {
 };
 
 function CreateBoardModal({ isOpen, close }: Props) {
+	const { mutate: createNewBoard, isLoading: isCreating } = useCreateNewBoard();
+	const { data: userProfile } = useGetUserProfile();
+
 	const { register, handleSubmit, watch, resetField } = useForm<NewBoardForm>();
 	const coverPhoto = watch("cover")?.[0];
 
-	function onSubmit(values: NewBoardForm) {
-		console.log(values);
+	function onSubmit({ title, isPrivate, cover }: NewBoardForm) {
+		if (!userProfile) return;
+
+		createNewBoard({
+			title,
+			isPrivate,
+			cover: cover?.[0],
+			admin: userProfile,
+		});
 	}
 
 	return (
@@ -90,15 +102,17 @@ function CreateBoardModal({ isOpen, close }: Props) {
 								</>
 							</div>
 							<div className="mt-6 flex items-center justify-end gap-4 text-sm">
-								<button type="button" className="text-ash" onClick={close}>
+								<button type="button" className="text-ash" onClick={close} disabled={isCreating}>
 									Cancel
 								</button>
 								<button
 									type="submit"
-									className="flex items-center gap-2.5 rounded-lg bg-primaryBlue px-3 py-2 text-white"
+									className="flex items-center gap-2.5 rounded-lg bg-primaryBlue px-3 py-2 text-white disabled:opacity-75"
+									disabled={isCreating}
 								>
-									<MdAdd />
-									<span>Create</span>
+									{!isCreating && <MdAdd />}
+									<span>{isCreating ? "Creating" : "Create"}</span>
+									{isCreating && <div className="h-5 w-5 animate-spin rounded-full border-l-2" />}
 								</button>
 							</div>
 						</Dialog.Panel>
