@@ -23,16 +23,18 @@ async function updateProfile({ name, userId, photo, previousProfile }: ProfilePa
 	const batch = writeBatch(db);
 	batch.set(doc(db, apiRoutes.users, userId), newProfile, { merge: true });
 
-	const boardsRef = collection(db, apiRoutes.boards);
-	const userBoardsQuery = query(
-		boardsRef,
-		or(where("admin", "==", newProfile), where("members", "array-contains", previousProfile))
-	);
-	const userBoards = (await getDocs(userBoardsQuery)).docs;
-	userBoards.forEach((boardDoc) => {
-		const docRef = doc(db, apiRoutes.boards, boardDoc.id);
-		batch.update(docRef, newProfile);
-	});
+	if (previousProfile) {
+		const boardsRef = collection(db, apiRoutes.boards);
+		const userBoardsQuery = query(
+			boardsRef,
+			or(where("admin", "==", newProfile), where("members", "array-contains", previousProfile))
+		);
+		const userBoards = (await getDocs(userBoardsQuery)).docs;
+		userBoards.forEach((boardDoc) => {
+			const docRef = doc(db, apiRoutes.boards, boardDoc.id);
+			batch.update(docRef, newProfile);
+		});
+	}
 
 	return await batch.commit();
 }
