@@ -3,18 +3,21 @@ import { FaUserCircle } from "react-icons/fa";
 import LogoSVG from "../../assets/logo.svg";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { routes } from "../../routes";
 import useLogout from "../../hooks/auth/useLogout";
 import useGetUserProfile from "../../hooks/profile/useGetUserProfile";
 import Avatar from "../home/Avatar";
 import clsx from "clsx";
+import useGetBoardDetails from "../../hooks/home/useGetBoardDetails";
 
 function Header() {
 	const { data: userProfile } = useGetUserProfile();
 	const { mutate: logout } = useLogout();
 	const { pathname } = useLocation();
 	const isHome = pathname === routes.home;
+	const { boardId } = useParams();
+	const { data: boardDetails } = useGetBoardDetails(boardId);
 
 	return (
 		<header className="sticky top-0 flex items-center justify-between gap-4 bg-white px-3 pb-3 pt-5 shadow-shadow1 sm:px-7">
@@ -32,7 +35,7 @@ function Header() {
 				</div>
 				{!isHome && (
 					<div className="flex items-center gap-6">
-						<div className="hidden font-poppins text-lg font-medium sm:block">Devchallenges Board</div>
+						<div className="hidden font-poppins text-lg font-medium sm:block">{boardDetails?.title}</div>
 						<div className="hidden h-8 w-[1px] bg-grey2 sm:block" />
 						<Link
 							to={routes.home}

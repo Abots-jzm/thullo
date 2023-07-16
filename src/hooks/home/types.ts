@@ -18,3 +18,14 @@ export type Board = {
 	description: string;
 	createdAt: Timestamp;
 };
+
+export type JoinBoardPayload = {
+	boardId: string;
+	user: UserProfile;
+};
+
+export type ValidNewMembersPayload = {
+	boardId?: string;
+	admin?: UserProfile;
+	members?: UserProfile[];
+};

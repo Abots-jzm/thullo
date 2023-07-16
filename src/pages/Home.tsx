@@ -19,7 +19,7 @@ function Home() {
 	}
 
 	return (
-		<div className="h-full bg-offWhite pt-8 sm:pt-16">
+		<main className="h-full bg-offWhite pt-8 sm:pt-16">
 			<div className="mx-auto max-w-5xl px-3">
 				<div className="flex items-center justify-between">
 					<div className=" font-poppins text-lg font-medium">All Boards</div>
@@ -46,7 +46,7 @@ function Home() {
 			</div>
 
 			<CreateBoardModal isOpen={modalIsOpen} close={closeModal} />
-		</div>
+		</main>
 	);
 }
 
