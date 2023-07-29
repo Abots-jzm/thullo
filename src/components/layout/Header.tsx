@@ -20,7 +20,7 @@ function Header() {
 	const { data: boardDetails } = useGetBoardDetails(boardId);
 
 	return (
-		<header className="sticky top-0 flex items-center justify-between gap-4 bg-white px-3 pb-3 pt-5 shadow-shadow1 sm:px-7">
+		<header className="flex items-center justify-between gap-4 bg-white px-3 pb-3 pt-5 shadow-shadow1 sm:px-7">
 			<div className="flex items-center gap-16 lg:gap-24">
 				<div
 					className={clsx("items-center gap-2 lg:gap-3", {

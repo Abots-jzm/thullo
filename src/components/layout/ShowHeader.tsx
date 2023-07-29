@@ -3,10 +3,10 @@ import Header from "./Header";
 
 function ShowHeader() {
 	return (
-		<>
+		<div className="flex h-screen flex-col">
 			<Header />
 			<Outlet />
-		</>
+		</div>
 	);
 }
 

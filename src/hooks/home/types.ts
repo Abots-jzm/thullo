@@ -29,3 +29,8 @@ export type ValidNewMembersPayload = {
 	admin?: UserProfile;
 	members?: UserProfile[];
 };
+
+export type UpdateDescriptionPayload = {
+	boardId: string;
+	description: string;
+};
