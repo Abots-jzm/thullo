@@ -27,7 +27,7 @@ function ListCard({ title, id, data }: Props) {
 			{...listeners}
 			className={clsx(
 				"rounded-lg bg-white p-3 shadow-shadow3",
-				isDragging && "relative z-50 cursor-grabbing border border-dashed border-primaryBlue bg-[#E2E8F6]"
+				isDragging && "relative z-50 cursor-grabbing border border-dashed border-primaryBlue bg-[#f8f9fd]"
 			)}
 		>
 			<div className={clsx(isDragging && "opacity-0")}>
